@@ -1,0 +1,212 @@
+<html><head><base href="web-simulator-input"><title>Elegant Login Page</title>
+<style>
+:root {
+    --primary: #FF69B4;
+    --secondary: #F5F7FA;
+    --text-color: #FF1493;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            #FFB6C1 0px,
+            #FFB6C1 20px,
+            #FFC0CB 20px,
+            #FFC0CB 40px,
+            #FFD1DC 40px,
+            #FFD1DC 60px
+        );
+    color: var(--text-color);
+    animation: moveRibbons 15s linear infinite;
+}
+
+@keyframes moveRibbons {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100px 100px;
+    }
+}
+
+.login-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.login-container:hover {
+    transform: translateY(-5px);
+}
+
+h1 {
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #eee;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    color: var(--text-color);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    font-size: 1rem;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 5px;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    background: white;
+    padding: 0 5px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: var(--text-color);
+}
+
+.links {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.links a:hover {
+    color: var(--primary);
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+    display: none;
+}
+</style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Welcome Back</h1>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="email" id="email" placeholder=" " required>
+                <label for="email">Email</label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder=" " required>
+                <label for="password">Password</label>
+            </div>
+            <button type="submit">Sign In</button>
+            <div class="error-message" id="errorMessage">Invalid email or password</div>
+        </form>
+        <div class="links">
+            <a href="https://example.com/forgot-password">Forgot Password?</a>
+            <a href="https://example.com/signup">Create Account</a>
+        </div>
+    </div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const errorMessage = document.getElementById('errorMessage');
+    
+    // Simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!emailRegex.test(email) || password.length < 6) {
+        errorMessage.style.display = 'block';
+        
+        // Add shake animation
+        const container = document.querySelector('.login-container');
+        container.style.animation = 'shake 0.5s';
+        setTimeout(() => {
+            container.style.animation = '';
+        }, 500);
+    } else {
+        // Simulate successful login
+        errorMessage.style.display = 'none';
+        button.textContent = 'Signing in...';
+        
+        // Simulated API call
+        setTimeout(() => {
+            alert('Login successful!');
+            button.textContent = 'Sign In';
+        }, 1500);
+    }
+});
+
+// Add keyframe animation for shake effect
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+        20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+`;
+document.head.appendChild(style);
+</script>
+</body></html>
